@@ -1,22 +1,13 @@
 import cv2
 import preprocess
-import calibrateCamera
 import laneDetection
 from moviepy.editor import VideoFileClip
 
 def calibrate():
-    #Insert atleast 20 images for calibration from your camera, needs to run only once.
-    #fname = '..\\data\\calibration\\*.jpg'
-    #objpoints, imgpoints = calibrateCamera.pointExtractor(fname)
-    #return objpoints, imgpoints
     return 0
 
 def pipeline(frame):
     image = frame
-
-    #Disabled, techinically each frame needs to be undistored before being processed.
-    #objpoints, imgpoints = [] #Add them manually
-    #frame = calibrateCamera.calibrate(objpoints, imgpoints, frame)
 
     frame, invM = preprocess.warp(frame)
     frame = preprocess.grayscale(frame)
@@ -57,6 +48,6 @@ def main(infile, outfile):
     processFrames(infile, outfile)
 
 if __name__ == "__main__":
-    infile = "..\\data\\dashcam_video_trim.mp4"
-    outfile = "..\\data\\dashcam_video_trim_output.mp4"
+    infile = "..\\data\\project_video.mp4"
+    outfile = "..\\data\\project_video_output.mp4"
     main(infile, outfile)

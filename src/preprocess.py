@@ -8,18 +8,17 @@ def warp(image):
     w = image.shape[1]
     h = image.shape[0]
 
-    src = np.float32([[200, 460], [1150, 460], [436, 220], [913, 220]])
-    dst = np.float32([[300, 720], [1000, 720], [400, 0], [1200, 0]])
+    src = np.float32([[545, 465], [w - 500, 465], [400, h], [w, h]])  # 原始图像中 4点坐标
+    dst = np.float32([[200, 0], [w, 0], [200, h ], [w , h]])  # 变换图像中 4点坐标
 
     M = cv2.getPerspectiveTransform(src, dst)
     invM = cv2.getPerspectiveTransform(dst, src)
 
     warped = cv2.warpPerspective(image, M, (image.shape[1], image.shape[0]), flags=cv2.INTER_LINEAR)
-
     return warped, invM
 
 def threshold(image):
-    ret, image = cv2.threshold(image, 220, 225, cv2.THRESH_BINARY)
+    ret, image = cv2.threshold(image, 170, 230, cv2.THRESH_BINARY)
     if(ret == False):
         print('Error in thresholding')
     else:
